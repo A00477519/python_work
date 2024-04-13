@@ -16,9 +16,12 @@ import numpy as np
 from PIL import Image
 from keras.models import load_model
 from PIL import ImageOps
+import os
 
 # Load the pre-trained model
-model = load_model("/Users/papantiamoah/Documents/School/Masters/2ndSemester/Data&Text_Mining/python_assignment/keras_model.h5")
+model_path = os.path.join(os.path.dirname(__file__), 'keras_model.h5')
+model = load_model(model_path)
+#model = load_model("/Users/papantiamoah/Documents/School/Masters/2ndSemester/Data&Text_Mining/python_assignment/keras_model.h5")
 
 # Compile the model with appropriate loss function and metrics
 model.compile(optimizer='adam',
