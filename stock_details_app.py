@@ -14,15 +14,32 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # CoinGecko API URL for coins list
-COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
+#COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
 
 # Fetch the list of available coins and their IDs
 def fetch_coins():
-    response = requests.get(COINS_LIST_URL)
-    coins = response.json()
-    return {coin['name']: coin['id'] for coin in coins}
+    COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
+    try:
+        response = requests.get(COINS_LIST_URL)
+        response.raise_for_status()  # Will raise an exception for HTTP error codes
+        coins = response.json()
 
-coins = fetch_coins()
+        # Debugging: Check the type and sample data
+        print(f"Type of coins variable: {type(coins)}")
+        if isinstance(coins, list) and coins:
+            print(f"Sample coin entry: {coins[0]}")
+        else:
+            print("Coins is not a list or is empty")
+            return {}
+
+        return {coin['name']: coin['id'] for coin in coins if 'name' in coin and 'id' in coin}
+    except requests.HTTPError as e:
+        print(f"HTTP error occurred: {e}")  # HTTP error
+        return {}
+    except Exception as e:
+        print(f"An error occurred: {e}")  # Other errors
+        return {}
+
 
 # Streamlit UI
 st.title('Cryptocurrency Price Tracker')
