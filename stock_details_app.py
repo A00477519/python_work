@@ -14,7 +14,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # CoinGecko API URL for coins list
-#COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
+COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
 
 # Fetch the list of available coins and their IDs
 # Fetch the list of available coins and their IDs
