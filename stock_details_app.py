@@ -17,14 +17,12 @@ import matplotlib.pyplot as plt
 COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
 
 # Fetch the list of available coins and their IDs
-# Fetch the list of available coins and their IDs
 def fetch_coins():
     response = requests.get(COINS_LIST_URL)
     coins = response.json()
     return {coin['name']: coin['id'] for coin in coins}
 
 coins = fetch_coins()
-
 
 # Streamlit UI
 st.title('Cryptocurrency Price Tracker')
