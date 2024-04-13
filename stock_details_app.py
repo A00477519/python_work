@@ -17,28 +17,13 @@ import matplotlib.pyplot as plt
 #COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
 
 # Fetch the list of available coins and their IDs
+# Fetch the list of available coins and their IDs
 def fetch_coins():
-    COINS_LIST_URL = "https://api.coingecko.com/api/v3/coins/list"
-    try:
-        response = requests.get(COINS_LIST_URL)
-        response.raise_for_status()  # Will raise an exception for HTTP error codes
-        coins = response.json()
+    response = requests.get(COINS_LIST_URL)
+    coins = response.json()
+    return {coin['name']: coin['id'] for coin in coins}
 
-        # Debugging: Check the type and sample data
-        print(f"Type of coins variable: {type(coins)}")
-        if isinstance(coins, list) and coins:
-            print(f"Sample coin entry: {coins[0]}")
-        else:
-            print("Coins is not a list or is empty")
-            return {}
-
-        return {coin['name']: coin['id'] for coin in coins if 'name' in coin and 'id' in coin}
-    except requests.HTTPError as e:
-        print(f"HTTP error occurred: {e}")  # HTTP error
-        return {}
-    except Exception as e:
-        print(f"An error occurred: {e}")  # Other errors
-        return {}
+coins = fetch_coins()
 
 
 # Streamlit UI
